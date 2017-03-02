@@ -15,15 +15,12 @@ private:
 
 public:
 	Stack(int nrOfElements = 0, int stackCapacity = 2);
-								//vår defaultKonstruktor
-	
+								//vår defaultKonstruktor	
 	Stack(const Stack<T> &origObj);
 	
 	~Stack();
 
 	void operator=(const Stack<T> &origObj);
-
-
 
 	 void push(const  T& element);
 	
@@ -39,7 +36,7 @@ public:
 #endif // !STACK_H
 
 template<typename T>
-inline void Stack<T>::expand()
+ void Stack<T>::expand()
 {
 	this->capacity *= 2;
 	T *temp = new T[this->capacity];
@@ -62,7 +59,7 @@ Stack<T>::Stack(int nrOfElements, int stackCapacity)
 }
 
 template<typename T>
-inline Stack<T>::Stack(const Stack<T>& origObj)
+ Stack<T>::Stack(const Stack<T>& origObj)
 {
 	this->capacity = origObj.capacity;
 	this->nrOfElements = origObj.nrOfElements;
@@ -73,13 +70,13 @@ inline Stack<T>::Stack(const Stack<T>& origObj)
 }
 
 template<typename T>
-inline Stack<T>::~Stack()
+ Stack<T>::~Stack()
 {
 	delete[] this->elements;
 }
 
 template<typename T>
-inline void Stack<T>::operator=(const Stack<T>& origObj)
+ void Stack<T>::operator=(const Stack<T>& origObj)
 {
 
 	if (this != origObj) {
@@ -97,11 +94,15 @@ inline void Stack<T>::operator=(const Stack<T>& origObj)
 template<typename T>
 void Stack<T>::push(const T & element)
 {
-	if (this->nrOfElements == this->capacity) {		//Kolla om det finns plats, om inte gör plats
+	if (this->nrOfElements == this->capacity) {		
+		//Kolla om det finns plats, om inte gör plats
 		this->expand(); 
 	}
 
-	this->elements[this->nrOfElements] = element;	// läggs på plats nrOfElements. (blir längst bak men vi tänker att det är toppen)		
+	this->elements[this->nrOfElements] = element;	
+	// läggs på plats nrOfElements. 
+	//(blir längst bak men vi tänker att det är toppen)		
+
 	this->nrOfElements++;
 	//this->myStack[]
 
@@ -114,24 +115,31 @@ T Stack<T>::pop() throw(...)
 		throw "Empty Stack";
 	}
 	
-	this->nrOfElements--;
-	return this->elements[this->nrOfElements];
+	this->nrOfElements--; 
+	// anger att sista platsen i arraten är OK att skriva över, räknas som borttagen
 
-
+	return this->elements[this->nrOfElements]; 
+	//returnerar sista elementet i arrayen
+	
+	//return this->elements[--this->nrOfElements]; //alternativ rad
 }
 
 template<typename T>
-inline T Stack<T>::Peek() const throw(...)
+T Stack<T>::Peek() const throw(...)
 {
-	if (this->nrOfElements == 0) { //Kasta error, empty stack.. för vår stack är tom
+	if (this->nrOfElements == 0) { 
+		//Kasta error, empty stack.. för vår stack är tom
 		throw "Empty Stack";
 	}
 		
-	return this->elements[this->nrOfElements-1]; // vi returnerar bara det sista elementet i arrayen
+	return this->elements[this->nrOfElements-1]; 
+	// vi returnerar bara det sista elementet i arrayen
 }
 
+
 template<typename T>
-inline bool Stack<T>::isEmpty() const
+bool Stack<T>::isEmpty() const
 {
-	return this->elements == 0; //om vi har 0 element i vår array så är den tom...
+	return this->elements == 0; 
+	//om vi har 0 element i vår array så är den tom...
 }
